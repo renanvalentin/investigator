@@ -1,0 +1,13 @@
+{
+	"responses": [{
+			"suspect": "Donald Duck Knuth",
+			"gun": "Trezoitão",
+			"local": "Tokio"
+		},
+		{
+			"suspect": "Charles B. Abbage",
+			"gun": "Peixeira",
+			"local": "Redmond"
+		}
+	]
+}
