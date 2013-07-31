@@ -130,6 +130,8 @@ function Detetive() {
 		_assassino = assassinos.shift();
 		_informacoesUtilizadas.assassinos.push(_assassino);
 
+		if(_informacoesUtilizadas.assassinos.length == _dados.assassinos.length)
+			_informacoesUtilizadas.assassinos = [];
 	}
 
 	function obterLocalParaProximaTeoria () {
@@ -139,6 +141,9 @@ function Detetive() {
 
 		_local = locais.shift();
 		_informacoesUtilizadas.locais.push(_local);		
+
+		if(_informacoesUtilizadas.locais.length == _dados.locais.length)
+			_informacoesUtilizadas.locais = [];
 	}	
 
 	function obterArmaParaProximaTeoria () {
@@ -148,6 +153,9 @@ function Detetive() {
 
 		_arma = armas.shift();
 		_informacoesUtilizadas.armas.push(_arma);
+
+		if(_informacoesUtilizadas.armas.length == _dados.armas.length)
+			_informacoesUtilizadas.armas = [];
 	}
 }
 
