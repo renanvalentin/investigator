@@ -53,9 +53,11 @@ function Testemunha(assassino, local, arma) {
 Testemunha.prototype.validarTeoria = function(assassino, local, arma) {
 	var self = this;
 
-	if((!valAss() && !valLoc() && !valArm()) || !valAss()) {
-		return 1;
-	} else if ((!valLoc() && !valArm()) || !valLoc()) {
+	if(!valAss() && !valLoc() && !valArm()) {
+		return _.random(1,3);
+	} else if (!valAss()) {
+		return 1;	
+	} else if (!valLoc()) {
 		return 2;
 	} else if (!valArm()) {
 		return 3;
@@ -83,63 +85,41 @@ function Detetive() {
 			locais: [],
 			armas: []
 		},
-		_repostaAnterior,
-		_repostaAtual;
+		_assassino,
+		_local,
+		_arma;		
 
-
-	this.erros = [];
-	this.tentativas = [];
-	
-	this.ultimoErro;
-	this.assassino;
-	this.local;
-	this.arma;
 
 	this.criarTeoria;	
 	this.criarTeoriaBaseadoEmResposta;	
 
-	this.chutarAssassino;	
-	this.chutarLocal;	
-	this.chutarArma;	
-
-
 	this.obterProximaTeoria = function() {
-		return novaTeoria();
-	};
-
-	this.obterProximaTeoriaBaseadoReposta = function(resposta) {
-		_repostaAnterior = _repostaAtual;
-		_repostaAtual = resposta;
-
-		/*if(_repostaAnterior != _repostaAtual) {
-			if(_repostaAtual)
-		}*/
+		obterAssassinoParaProximaTeoria();
+		obterLocalParaProximaTeoria();
+		obterArmaParaProximaTeoria();
 
 		return {
-			assassino: assassino,
-			local: local,
-			arma: arma
-		}
-	};
-
-	function novaTeoria() {
-		var assassino = obterAssassinoParaProximaTeoria(),
-			local = obterLocalParaProximaTeoria(),
-			arma = obterArmaParaProximaTeoria();
-
-		teoriasUtilizadas(assassino, local, arma);
-
-		return {
-			assassino: assassino,
-			local: local,
-			arma: arma
+			assassino: _assassino,
+			local: _local,
+			arma: _arma
 		} 
 	};
 
-	function teoriasUtilizadas(assassino, local, arma) {
-		_informacoesUtilizadas.assassinos.push(assassino);
-		_informacoesUtilizadas.locais.push(local);
-		_informacoesUtilizadas.armas.push(arma);
+	this.obterProximaTeoriaBaseadoReposta = function(resposta) {
+
+		if(resposta == 1) {
+			obterAssassinoParaProximaTeoria();
+		} else if (resposta == 2) {
+			obterLocalParaProximaTeoria();
+		} else if (resposta == 3) {
+			obterArmaParaProximaTeoria();
+		}
+
+		return {
+			assassino: _assassino,
+			local: _local,
+			arma: _arma
+		} 
 	};
 
 	function obterAssassinoParaProximaTeoria () {
@@ -147,7 +127,9 @@ function Detetive() {
 			return !_.contains(_informacoesUtilizadas.assassinos, assassino);
 		});
 
-		return assassinos.pop();
+		_assassino = assassinos.shift();
+		_informacoesUtilizadas.assassinos.push(_assassino);
+
 	}
 
 	function obterLocalParaProximaTeoria () {
@@ -155,7 +137,8 @@ function Detetive() {
 			return !_.contains(_informacoesUtilizadas.locais, local);
 		});
 
-		return locais.pop();
+		_local = locais.shift();
+		_informacoesUtilizadas.locais.push(_local);		
 	}	
 
 	function obterArmaParaProximaTeoria () {
@@ -163,7 +146,8 @@ function Detetive() {
 			return !_.contains(_informacoesUtilizadas.armas, arma);
 		});
 
-		return armas.pop();
+		_arma = armas.shift();
+		_informacoesUtilizadas.armas.push(_arma);
 	}
 }
 

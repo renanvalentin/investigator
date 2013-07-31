@@ -48,10 +48,35 @@
 
     describe('Detetive Testes', function () {
 
- 		it('as teorias não devem ser iguais', function () {   
- 			var teroria = detetive.criarTeoria();				
+ 	
 
- 			expect(detetive.criarTeoria()).to.not.eql(teroria);
- 		});
+        it('resposta deve ser 0', function () {   
+            var resposta = 1,
+                tentativas = 0,
+                data = new Data(),
+                randomAssassino = data.assassinos[_.random(0 , data.assassinos.length - 1)],
+                randomLocal = data.locais[_.random(0 , data.locais.length - 1)],
+                randomArma = data.armas[_.random(0 , data.armas.length - 1)];
+
+            testemunha = new Testemunha(randomAssassino, randomLocal, randomArma);
+
+            console.log(testemunha);
+
+            resposta = detetive.criarTeoria();
+
+            for (var i = 0; i < 100; i++) {
+                var teoria = detetive.criarTeoriaBaseadoEmResposta(resposta);
+
+                console.log(teoria);
+
+                resposta = testemunha.validarTeoria(teoria.assassino, teoria.local, teoria.arma);
+
+                if(resposta == 0)
+                    break;
+            };
+
+
+            expect(resposta).to.be.equal(0);
+        });        
     });
 })();
