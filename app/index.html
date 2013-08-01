@@ -9,17 +9,31 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
-
-        <link rel="stylesheet" href="styles/main.css">
+      
+        <link href="styles/normalize.css" rel="stylesheet" />
+        <link href="styles/css/main.css" rel="stylesheet" />
         
-        <script src="bower_components/modernizr/modernizr.js"></script>
+        <script src="scripts/modernizr.js"></script>
     </head>
     <body>
+        <div class="main">
+            <div class="cena cena-1">
+                <a href="#">CLIQUE AQUI PARA JOGAR</a>
+            </div>
+            <div class="cena-2">
+                <div class="cena-log">
+
+                </div>
+                <a href="#" title="Repetir" class="repetir"></a>
+            </div>
+        </div>
         
 
         <!-- build:js scripts/main.js -->
-        <script src="bower_components/jquery/jquery.js"></script>
+        <script src="scripts/jquery.min.js"></script>
+        <script src="scripts/underscore-min.js"></script>
         <script src="scripts/main.js"></script>
+        <script src="scripts/ui.js"></script>
         <!-- endbuild -->
 </body>
 </html>
